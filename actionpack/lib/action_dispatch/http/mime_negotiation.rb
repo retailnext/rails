@@ -29,13 +29,18 @@ module ActionDispatch
       # Returns the accepted MIME type for the request.
       def accepts
         @env["action_dispatch.request.accepts"] ||= begin
+          fallback = [content_mime_type]
+          accepts = nil
           header = @env['HTTP_ACCEPT'].to_s.strip
-
           if header.empty?
-            [content_mime_type]
+            accepts = fallback
           else
-            Mime::Type.parse(header)
+            accepts = Mime::Type.parse(header).select do |format|
+              format.symbol || format.ref == "*/*"
+            end
+            accepts ||= fallback
           end
+          accepts
         end
       end
 
