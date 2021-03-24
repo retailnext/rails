@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
   s.add_dependency "actionmailer",  version
   s.add_dependency "activejob",     version
   s.add_dependency "actioncable",   version
-  s.add_dependency "activestorage", version
   s.add_dependency "railties",      version
 
   s.add_dependency "bundler",         ">= 1.3.0"
